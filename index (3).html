@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assetra Med | Smarter Medical Equipment. Connected Healthcare.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1c2e;
+    --navy-deep: #050d1a;
+    --navy-card: rgba(15, 28, 46, 0.6);
+    --cyan: #51f3ee;
+    --teal: #20d6d2;
+    --teal-deep: #005856;
+    --mint: #44ddc2;
+    --ice: #cbdeff;
+    --text: #bacac8;
+    --muted: #859492;
+    --border: rgba(59, 73, 73, 0.3);
+    --border-cyan: rgba(81, 243, 238, 0.3);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .brand { font-family: 'Manrope', sans-serif; color: #fff; }
+  .mono { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.6px; }
+
+  .container { max-width: 1232px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 96px 0; position: relative; }
+  .section-head { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+  .section-head h2 { font-size: 40px; letter-spacing: -1px; margin-bottom: 16px; }
+  .section-head p { font-size: 16px; color: var(--text); }
+  .eyebrow { color: var(--cyan); font-size: 10px; margin-bottom: 12px; display: inline-block; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 16px;
+    text-decoration: none; cursor: pointer; border: 1px solid transparent;
+    transition: transform .15s ease, background .15s ease;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--teal); color: var(--teal-deep); }
+  .btn-outline { background: var(--navy); color: #fff; border-color: rgba(59, 73, 73, 0.5); }
+
+  .card {
+    background: var(--navy-card);
+    border: 1px solid rgba(59, 73, 73, 0.2);
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .card h3 { font-size: 18px; margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--text); }
+
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(15, 28, 46, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { font-size: 20px; font-weight: 800; color: #fff; text-decoration: none; }
+  .brand span { color: var(--cyan); }
+
+  /* Hero */
+  .hero { padding: 64px 0 80px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(15, 28, 46, 0.9);
+    border: 1px solid rgba(81, 243, 238, 0.3);
+    border-radius: 12px; padding: 7px 13px; margin-bottom: 28px;
+  }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); }
+  .badge .mono { color: var(--cyan); font-size: 10px; font-weight: 700; }
+  .badge .sep { color: #3b4949; }
+  .badge .sub { font-size: 12px; color: var(--text); }
+  .hero h1 { font-size: 48px; line-height: 56px; letter-spacing: -1.4px; font-weight: 800; margin-bottom: 20px; }
+  .hero h1 .grad {
+    background: linear-gradient(90deg, #51f3ee, #44ddc2, #59f9f4);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .lead { font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 18px; color: var(--text); margin-bottom: 16px; }
+  .hero .body { font-size: 14px; color: var(--text); margin-bottom: 32px; max-width: 576px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 40px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat { background: var(--navy-card); border: 1px solid rgba(59,73,73,0.2); border-radius: 4px; padding: 13px; }
+  .stat .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.6px; color: var(--text); text-transform: uppercase; }
+  .stat .value { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 18px; color: var(--cyan); margin: 4px 0; }
+  .stat .note { font-size: 12px; color: var(--muted); }
+
+  .console {
+    background: rgba(11, 31, 56, 0.7);
+    border: 1px solid rgba(81, 243, 238, 0.35);
+    border-radius: 16px; padding: 21px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    backdrop-filter: blur(12px);
+  }
+  .console-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 13px; border-bottom: 1px solid rgba(59,73,73,0.3); margin-bottom: 16px; }
+  .console-top .live { display: flex; align-items: center; gap: 8px; color: var(--cyan); font-size: 10px; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+  .console-top .live .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--cyan); }
+  .console-top .node { font-size: 12px; color: var(--text); }
+  .console-top .tag { background: #142032; border: 1px solid rgba(81,243,238,0.4); padding: 3px 11px; border-radius: 2px; font-size: 10px; color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-weight: 700; margin-right: 12px; }
+  .console-screen {
+    background: rgba(3, 14, 32, 0.8);
+    border: 1px solid rgba(81,243,238,0.25);
+    border-radius: 8px; padding: 24px;
+    background-image: linear-gradient(90deg, rgba(32,214,210,0.05) 1px, transparent 1px), linear-gradient(180deg, rgba(32,214,210,0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .trace { height: 90px; margin: 36px 0 16px; border-top: 1px dashed rgba(68,221,194,0.3); position: relative; }
+  .trace svg { width: 100%; height: 100%; }
+  .readouts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+  .readout { background: rgba(3,14,32,0.7); border: 1px solid rgba(59,73,73,0.2); padding: 7px; border-radius: 2px; text-align: center; }
+  .readout .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .6px; }
+  .readout .v { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 16px; color: var(--mint); }
+  .console-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .mini { background: rgba(15,28,46,0.7); border: 1px solid rgba(59,73,73,0.3); border-radius: 4px; padding: 13px; }
+  .mini .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--cyan); letter-spacing: .6px; }
+  .mini.mint .k { color: var(--mint); }
+  .mini .v { color: #fff; font-weight: 600; font-size: 12px; margin: 4px 0; }
+  .mini .s { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text); }
+
+  /* Problem */
+  .problem { background: rgba(5,13,26,0.5); }
+
+  /* Ecosystem */
+  .eco-card .icon { width: 40px; height: 40px; border-radius: 4px; background: rgba(81,243,238,0.1); border: 1px solid rgba(81,243,238,0.2); margin-bottom: 16px; }
+
+  /* Hospital solutions */
+  .device-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .device-row:last-child { border-bottom: none; }
+  .device-row .name { color: #fff; font-weight: 600; }
+  .device-row .sn { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
+  .kpi { text-align: left; }
+  .kpi .big { font-family: 'Manrope', sans-serif; font-size: 32px; font-weight: 800; color: var(--cyan); }
+  .kpi .cap { font-size: 14px; color: #fff; font-weight: 600; margin-top: 4px; }
+  .kpi .note { font-size: 13px; color: var(--muted); }
+
+  /* Smart match steps */
+  .steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .step .num { font-family: 'JetBrains Mono', monospace; color: var(--cyan); font-size: 12px; margin-bottom: 8px; }
+  .step h4 { font-size: 15px; margin-bottom: 6px; }
+  .step p { font-size: 13px; color: var(--text); }
+
+  /* Equipment DNA */
+  .dna-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
+  .dna-meta .card .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .6px; }
+  .dna-meta .card .v { font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 700; color: var(--cyan); margin-top: 4px; }
+  .dna-trail { margin-top: 24px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--mint); letter-spacing: .6px; }
+
+  /* OEM / SpareX */
+  .partner-card h3 { color: var(--cyan); }
+
+  /* Intelligence */
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .metric .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .6px; }
+  .metric .v { font-family: 'Manrope', sans-serif; font-size: 30px; font-weight: 800; color: var(--mint); margin: 6px 0 4px; }
+  .metric .s { font-size: 12px; color: var(--text); }
+  .advice { border-left: 3px solid var(--cyan); }
+  .advice h3 { color: var(--cyan); font-size: 16px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 8px; }
+
+  /* How it works */
+  .flow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
+  .flow .card { padding: 18px 14px; }
+  .flow .num { font-family: 'JetBrains Mono', monospace; color: var(--cyan); font-size: 12px; }
+  .flow h4 { font-size: 14px; margin: 8px 0; }
+  .flow p { font-size: 12px; color: var(--text); }
+
+  /* Why */
+  .why-card h3 { font-size: 17px; }
+
+  /* Final CTA */
+  .join-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 56px; }
+  .join-card h3 { font-size: 16px; margin-bottom: 8px; }
+  .join-card p { font-size: 13px; }
+  .join-card .arrow { color: var(--cyan); margin-top: 12px; display: inline-block; font-weight: 600; }
+  .login-bar { text-align: center; margin-bottom: 56px; font-size: 14px; }
+  .login-bar a { color: var(--cyan); font-weight: 600; text-decoration: none; }
+
+  .register { max-width: 520px; margin: 0 auto; background: rgba(11,31,56,0.7); border: 1px solid rgba(81,243,238,0.35); border-radius: 16px; padding: 32px; }
+  .register h3 { font-size: 22px; margin-bottom: 6px; text-align: center; }
+  .register > p { text-align: center; font-size: 14px; color: var(--text); margin-bottom: 24px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .6px; }
+  .field input {
+    width: 100%; padding: 12px 14px;
+    background: rgba(3,14,32,0.8); border: 1px solid rgba(81,243,238,0.25); border-radius: 4px;
+    color: #fff; font-family: 'Inter', sans-serif; font-size: 15px;
+  }
+  .field input:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(81,243,238,0.15); }
+  .register .btn { width: 100%; justify-content: center; margin-top: 8px; border: none; }
+  .btn:disabled { opacity: .6; cursor: wait; transform: none; }
+  .status { margin-top: 16px; text-align: center; font-size: 14px; min-height: 22px; }
+  .status.ok { color: var(--mint); }
+  .status.err { color: #ff8a8a; }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; background: rgba(5,13,26,0.6); }
+  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+  .foot-grid p { font-size: 14px; color: var(--muted); }
+  .foot-grid h4 { font-size: 14px; margin-bottom: 12px; color: #fff; }
+  .foot-grid a { display: block; color: var(--text); font-size: 14px; margin-bottom: 8px; text-decoration: none; }
+  .foot-bottom { border-top: 1px solid var(--border); padding-top: 24px; font-size: 12px; color: var(--muted); text-align: center; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .steps, .flow { grid-template-columns: repeat(3, 1fr); }
+    .join-grid { grid-template-columns: repeat(3, 1fr); }
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .grid-6 { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 900px) {
+    section { padding: 72px 0; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 40px; line-height: 48px; }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .dna-meta { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .container { padding: 0 16px; }
+    section { padding: 56px 0; }
+    .hero { padding: 40px 0 56px; }
+    .hero h1 { font-size: 32px; line-height: 40px; }
+    .section-head h2 { font-size: 28px; }
+    .grid-3, .grid-6, .steps, .flow, .join-grid, .metrics { grid-template-columns: 1fr; }
+    .readouts { grid-template-columns: repeat(2, 1fr); }
+    .stats { grid-template-columns: 1fr; }
+    .console-bottom { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: 1fr; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .badge { flex-wrap: wrap; border-radius: 8px; }
+    .register { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#top" class="brand">Assetra<span> Med</span></a>
+    <a href="#join" class="btn btn-primary" style="padding:8px 16px;font-size:14px;">Join the Ecosystem</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- SECTION 1: HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">
+          <span class="dot"></span>
+          <span class="mono">FDA 21 CFR &amp; ISO 13485 Certified Telemetry</span>
+          <span class="sep">|</span>
+          <span class="sub">Real-Time Clinical Interoperability</span>
+        </div>
+        <h1>Smarter Medical Equipment.<br><span class="grad">Connected Healthcare.</span></h1>
+        <p class="lead">One intelligent ecosystem connecting hospitals, biomedical engineers, service professionals, manufacturers and spare parts suppliers.</p>
+        <p class="body">From equipment registration to maintenance, service coordination and lifecycle intelligence, Assetra Med brings the entire biomedical ecosystem together in one connected platform.</p>
+        <div class="hero-actions">
+          <a href="#ecosystem" class="btn btn-primary">Explore Assetra Med &rarr;</a>
+          <a href="#join" class="btn btn-outline">Join the Ecosystem</a>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="label">System Uptime</div>
+            <div class="value">99.98%</div>
+            <div class="note">Clinical Mission-Critical</div>
+          </div>
+          <div class="stat">
+            <div class="label">Active Assets</div>
+            <div class="value">2,400+</div>
+            <div class="note">Verified Telemetry Units</div>
+          </div>
+          <div class="stat">
+            <div class="label">Mean Time to Match</div>
+            <div class="value" style="color:#cbdeff">14.2 min</div>
+            <div class="note">Certified Bio-Engineers</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="console">
+        <div class="console-top">
+          <div class="live"><span class="dot"></span> LIVE 3D TELEMETRY HUB &bull; ICU-BAY-04</div>
+          <div style="display:flex;align-items:center;"><span class="tag">ISO 13485 SYNC</span><span class="node">NODE: RX-9021</span></div>
+        </div>
+        <div class="console-screen">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span class="mono" style="color:#44ddc2;font-size:10px;">Real-Time Telemetry Trace</span>
+            <span class="mono" style="color:var(--cyan);font-size:10px;">Hamilton-C6 &bull; Active Telemetry Mesh</span>
+          </div>
+          <div class="trace">
+            <svg viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true">
+              <polyline fill="none" stroke="#44ddc2" stroke-width="2" points="0,50 40,50 55,50 62,20 70,78 78,35 88,50 130,50 145,50 152,22 160,74 168,40 178,50 220,50 235,50 242,18 250,80 258,38 268,50 310,50 325,50 332,24 340,72 348,42 358,50 400,50"/>
+            </svg>
+          </div>
+          <div class="readouts">
+            <div class="readout"><div class="k">SpO2</div><div class="v" style="color:var(--cyan)">99%</div></div>
+            <div class="readout"><div class="k">FiO2</div><div class="v">42%</div></div>
+            <div class="readout"><div class="k">PEEP</div><div class="v" style="color:var(--ice)">7.8 cmH2O</div></div>
+            <div class="readout"><div class="k">MESH</div><div class="v" style="color:#59f9f4">OPTIMAL</div></div>
+          </div>
+        </div>
+        <div class="console-bottom">
+          <div class="mini">
+            <div class="k">UDI PASSPORT SCANNED</div>
+            <div class="v">GE Voluson E10 Probe</div>
+            <div class="s">AMC Active &bull; Expires 280d</div>
+          </div>
+          <div class="mini mint">
+            <div class="k">BIO-ENGINEER DISPATCHED</div>
+            <div class="v">Eng. Marcus Vance, CBET</div>
+            <div class="s">ETA: 18m &bull; Calibrated Rig</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THE PROBLEM -->
+  <section class="problem" id="problem"></section>
+
+  <!-- SECTION 3: OUR ECOSYSTEM -->
+  <section id="ecosystem">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow mono">Our Ecosystem</span>
+        <h2>One Hub. Every Stakeholder.</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card eco-card"><div class="icon"></div><h3>Hospitals &amp; Clinical Centers</h3><p>Manage entire device registries, track real-time calibration compliance, initiate breakdown requests, and coordinate certified interventions with total auditable provenance.</p></div>
+        <div class="card eco-card"><div class="icon"></div><h3>Biomedical Engineers</h3><p>Monitor equipment health, preventative maintenance schedules, error codes, and technical operations through centralized telemetry and automated job tickets.</p></div>
+        <div class="card eco-card"><div class="icon"></div><h3>Field Service Engineers</h3><p>Discover nearby on-demand service dispatches, claim specialized OEM work assignments, access schematics, and submit verified digital calibration reports.</p></div>
+        <div class="card eco-card"><div class="icon"></div><h3>OEMs &amp; Manufacturers</h3><p>Connect directly with client health systems, issue official firmware updates, broadcast Field Safety Notices (FSNs), and track cohort equipment failure trends.</p></div>
+        <div class="card eco-card"><div class="icon"></div><h3>Spare Parts Suppliers</h3><p>List certified OEM &amp; aftermarket components, verify component cross-compatibility against serial equipment DNA, and fulfill high-priority urgent orders.</p></div>
+        <div class="card eco-card"><div class="icon"></div><h3>Assetra Med Governance</h3><p>Continuous compliance oversight, biomedical credential verification, algorithmic triage optimization, SLA disputes resolution, and platform integrity management.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: HOSPITAL SOLUTIONS -->
+  <section id="hospitals">
+    <div class="container">
+      <div class="grid-2" style="align-items:start;">
+        <div class="card">
+          <div class="device-row"><div><div class="name">Hamilton-G5 Ventilator</div><div class="sn">SN: HML-2023-8841</div></div></div>
+          <div class="device-row"><div><div class="name">Siemens Magnetom Vida 3T MRI</div><div class="sn">SN: SIE-MRI-4402</div></div></div>
+          <div class="device-row"><div><div class="name">Philips EPIQ 7 Ultrasound</div><div class="sn">SN: PHL-US-1092</div></div></div>
+        </div>
+        <div class="grid-3" style="grid-template-columns:1fr;gap:16px;">
+          <div class="card kpi"><div class="big">14</div><div class="cap">Sessions Due</div><div class="note">Automated dispatch scheduled for Q2 cycles</div></div>
+          <div class="card kpi"><div class="big">98.2%</div><div class="cap">Covered</div><div class="note">3 contract renewals pending authorization</div></div>
+          <div class="card kpi"><div class="big">2.4 Hours</div><div class="cap">Response</div><div class="note">42% reduction versus industry benchmark</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: ENGINEER NETWORK -->
+  <section id="engineers">
+    <div class="container grid-2">
+      <div class="card">
+        <span class="eyebrow mono">Engineer Network</span>
+        <h3>Independent &amp; Freelance Engineers</h3>
+        <p>Take command of your schedule. Leverage verified clinical certifications to claim nearby on-demand diagnostics and calibration service calls.</p>
+      </div>
+      <div class="card">
+        <span class="eyebrow mono">Engineer Network</span>
+        <h3>Full-Time Assetra Med Engineers</h3>
+        <p>Join our elite regional clinical engineering divisions. Deploy across premier health systems with structured fleet support, OEM toolkits, and ongoing mastery programs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: SMART SERVICE MATCH -->
+  <section id="match">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow mono">Smart Service Match</span>
+        <h2>From Fault to Verified Fix</h2>
+      </div>
+      <div class="steps">
+        <div class="step card"><div class="num">01</div><h4>Hospital Request</h4><p>Triage ticket opened via barcode scan or portal.</p></div>
+        <div class="step card"><div class="num">02</div><h4>Issue Identification</h4><p>Telemetry error codes and symptoms classified.</p></div>
+        <div class="step card"><div class="num">03</div><h4>Smart Matching</h4><p>Algorithmic scan of accredited engineer registry.</p></div>
+        <div class="step card"><div class="num">04</div><h4>Candidate Shortlist</h4><p>Top-3 verified engineers surfaced with credentials.</p></div>
+        <div class="step card"><div class="num">05</div><h4>Hospital Approval</h4><p>Clinical director confirms dispatch and price quote.</p></div>
+        <div class="step card"><div class="num">06</div><h4>Service Completion</h4><p>Digital service certificate written to Equipment DNA.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: EQUIPMENT DNA -->
+  <section id="equipment-dna">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow mono">Equipment DNA</span>
+        <h2>Every Equipment Has a Story. Give It a Digital Identity.</h2>
+        <p>Equipment DNA is a digital equipment passport that maintains the verified lifecycle history of every registered medical device.</p>
+      </div>
+      <div class="dna-meta">
+        <div class="card"><div class="k">COMMISSIONED</div><div class="v">14 Jan 2023</div></div>
+        <div class="card"><div class="k">WARRANTY EXPIRES</div><div class="v">13 Jan 2028</div></div>
+        <div class="card"><div class="k">TOTAL RUN HOURS</div><div class="v">4,892.4 hrs</div></div>
+        <div class="card"><div class="k">LAST CALIBRATION</div><div class="v">02 Mar 2025 (PASS)</div></div>
+      </div>
+      <p class="dna-trail">VERIFIED LIFECYCLE AUDIT TRAIL (FDA 21 CFR COMPLIANT)</p>
+    </div>
+  </section>
+
+  <!-- SECTION 8: OEM BRIDGE & SPAREX CONNECT -->
+  <section id="oem">
+    <div class="container grid-2">
+      <div class="card partner-card">
+        <h3>OEM Bridge</h3>
+        <p>Connect biomedical departments directly to device manufacturers for authentic service bulletins, warranty clearance, and lifecycle insights.</p>
+      </div>
+      <div class="card partner-card">
+        <h3>SpareX Connect</h3>
+        <p>Connected spare parts discovery and supplier network ensuring instant compatibility checks and rapid fulfillment dispatch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: EQUIPMENT INTELLIGENCE -->
+  <section id="intelligence">
+    <div class="container">
+      <div class="metrics">
+        <div class="card metric"><div class="k">DOWNTIME REDUCTION</div><div class="v">-38.4%</div><div class="s">vs Previous 12 Months</div></div>
+        <div class="card metric"><div class="k">MAINTENANCE FREQUENCY</div><div class="v">99.1%</div><div class="s">On-Time Scheduled PMs</div></div>
+        <div class="card metric"><div class="k">CAPEX LIFECYCLE EXTENSION</div><div class="v">+2.3 yrs</div><div class="s">Average Fleet Asset Life</div></div>
+        <div class="card metric"><div class="k">ANNUAL CONTRACT SAVINGS</div><div class="v">$412,000</div><div class="s">Via Triage Optimization</div></div>
+      </div>
+      <div class="card advice">
+        <h3>Actionable Maintenance Advice</h3>
+        <p>Based on acoustic sensor telemetry and run hours, 4 anesthesia machines will reach recommended vacuum pump overhaul cycles within 30 days. Scheduling preventive intervention now avoids emergency OR cancellations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 10: HOW ASSETRA MED WORKS -->
+  <section id="how-it-works">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow mono">How It Works</span>
+        <h2>How Assetra Med Works</h2>
+      </div>
+      <div class="flow">
+        <div class="card"><div class="num">01</div><h4>Register Equipment</h4><p>Generate UDI QR code and bind OEM specs into registry.</p></div>
+        <div class="card"><div class="num">02</div><h4>Identify the Issue</h4><p>Scan machine tag to report sudden fault or schedule PM.</p></div>
+        <div class="card"><div class="num">03</div><h4>Smart Matching</h4><p>System triages requirements with certified specialist pool.</p></div>
+        <div class="card"><div class="num">04</div><h4>Engineer Selection</h4><p>Hospital selects preferred verified engineer candidate.</p></div>
+        <div class="card"><div class="num">05</div><h4>Service Execution</h4><p>On-site or remote repair using certified testing rigs.</p></div>
+        <div class="card"><div class="num">06</div><h4>Digital Report</h4><p>Engineer logs parameters, parts replaced, and calibration data.</p></div>
+        <div class="card"><div class="num">07</div><h4>Equipment DNA Update</h4><p>Lifecycle record automatically updated and signed.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 11: WHY ASSETRA MED -->
+  <section id="why">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow mono">Why Assetra Med</span>
+        <h2>Built for Clinical Engineering</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card why-card"><h3>Unified Platform</h3><p>Consolidates asset registries, maintenance logs, contracts, and telemetry into one high-security clinical command console.</p></div>
+        <div class="card why-card"><h3>Verified Professional Network</h3><p>Every participating engineer undergoes rigorous background, CBET, and manufacturer accreditation vetting before dispatch.</p></div>
+        <div class="card why-card"><h3>Digital Equipment Lifecycle</h3><p>Comprehensive digital passports guarantee flawless compliance with FDA 21 CFR Part 11 and ISO 13485 auditor standards.</p></div>
+        <div class="card why-card"><h3>Intelligent Service Coordination</h3><p>Algorithmic triage matches specialized device failure codes with technicians certified in that exact make and model.</p></div>
+        <div class="card why-card"><h3>Connected OEM &amp; Supplier Network</h3><p>Direct access to genuine factory spare parts with automated compatibility verification, eliminating counterfeit risks.</p></div>
+        <div class="card why-card"><h3>Data-Driven Equipment Management</h3><p>Real-time telemetry and decision intelligence that drive down operational downtime and optimize hospital capital expenditure.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 12: FINAL CTA & ONBOARDING DIRECTORY -->
+  <section id="join">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow mono">Get Started</span>
+        <h2>Join the Ecosystem</h2>
+      </div>
+      <div class="join-grid">
+        <div class="card join-card"><h3>Join as Hospital</h3><p>Empower your clinical engineering team with digital Equipment DNA and on-demand verified service technicians.</p><span class="arrow">&rarr;</span></div>
+        <div class="card join-card"><h3>Join as Biomedical Engineer</h3><p>Access advanced telemetry diagnostics, scheduled maintenance jobs, and accredited credential portfolios.</p><span class="arrow">&rarr;</span></div>
+        <div class="card join-card"><h3>Join as Service Engineer</h3><p>Receive local service call dispatches, access factory schematics, and earn with rapid digital verification payouts.</p><span class="arrow">&rarr;</span></div>
+        <div class="card join-card"><h3>Join as Manufacturer (OEM)</h3><p>Integrate with our OEM Bridge to directly support device fleets, distribute manuals, and monitor field uptime.</p><span class="arrow">&rarr;</span></div>
+        <div class="card join-card"><h3>Join as Supplier</h3><p>Supply certified replacement components directly through SpareX Connect compatibility pipeline.</p><span class="arrow">&rarr;</span></div>
+      </div>
+      <p class="login-bar">Already registered? <a href="#">Platform Login</a> to access your clinical engineering cockpit, dispatch queue, or supplier orders.</p>
+
+      <!-- Registration form: Name, Email, Phone only -->
+      <div class="register" id="register">
+        <h3>Register Your Interest</h3>
+        <p>Share your details and our team will get in touch.</p>
+        <form id="regForm" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submitBtn">Register</button>
+          <div class="status" id="status" role="status"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="margin-bottom:12px;display:inline-block;">Assetra<span> Med</span></div>
+        <p>Smarter medical equipment. Connected healthcare. A connected platform for hospitals, biomedical engineers, service professionals, manufacturers and suppliers, based in Coimbatore.</p>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <a href="#ecosystem">Ecosystem</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#equipment-dna">Equipment DNA</a>
+      </div>
+      <div>
+        <h4>Join</h4>
+        <a href="#join">Hospitals</a>
+        <a href="#join">Engineers</a>
+        <a href="#join">Manufacturers</a>
+        <a href="#join">Suppliers</a>
+      </div>
+    </div>
+    <div class="foot-bottom">&copy; 2026 Assetra Med. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Apps Script web app URL (deployed Code.gs)
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7nSm9He-vg0tDuZQX56bGl-txe-89D7GTFYncfJqhQl8jHCV-rrZIW7KAcjzKVvNRrQ/exec";
+
+  const form = document.getElementById("regForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusEl = document.getElementById("status");
+
+  function showSuccess() {
+    statusEl.textContent = "Thank you. We will be in touch soon.";
+    statusEl.className = "status ok";
+    form.reset();
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Register";
+  }
+
+  function showError() {
+    statusEl.textContent = "Something went wrong. Please try again.";
+    statusEl.className = "status err";
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Register";
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+
+    if (!name || !email || !phone) {
+      statusEl.textContent = "Please fill in all fields.";
+      statusEl.className = "status err";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+    statusEl.textContent = "";
+    statusEl.className = "status";
+
+    const url = SCRIPT_URL + "?" + new URLSearchParams({ name: name, email: email, phone: phone });
+
+    fetch(url, { method: "GET", mode: "no-cors" })
+      .then(() => showSuccess())
+      .catch(() => showError());
+  });
+</script>
+
+</body>
+</html>
